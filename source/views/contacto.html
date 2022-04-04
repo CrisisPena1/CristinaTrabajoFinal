@@ -1,0 +1,109 @@
+<html>
+<%-include('partials/head.html');%>
+
+	<body>
+		<header>
+			<%-include('partials/navegacion.html');%>
+		</header>
+		<div class="container">
+			<div id="seccion">
+				<div class="row mt-5">
+					<div class="col-md-4 mt-5 ms-5">
+						<div class="card text-center text-white bg-dark mb-3">
+							<h3>AGREGAR CONTACTO</h3>
+								<div class="card-body">
+								<form action="/contacto/nuevo" method="post">
+									<div>
+										<div class="form-group">
+											<label for="nombre"><b> <i>INGRESA TU NOMBRE</i> </b></label>
+											<input type="text" name="nombre" class="form-control" id="nombre">
+										</div>
+										<div class="form-group mt-2">
+											<label for="domicilio"><b> <i>INGRESA TU DOMICILIO</i> </b></label>
+											<input type="text" name="domicilio" class="form-control" id="domicilio">
+										</div>
+										<div class="form-group mt-2">
+											<label for="telefono"> <b> <i>INGRESA TU TELEFONO</i> </b></label>
+											<input type="text" name="telefono" class="form-control" id="telefono">
+										</div>
+									</div>
+									<div>
+										<button type="submit" class="btn btn-outline-success mt-3">Guardar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 mt-5 ms-5">
+						<div class="card text-center text-white bg-dark mb-3">
+							<div class="card-head">
+								<h3>Modificar Contacto</h3>
+							</div>
+							<div class="card-body form-group mt-2">
+								<form action="/contacto/id" method="get" >
+									<label for="idContactos">Contacto ID:</label>
+									<input type="text" id="idContactos" name="idContactos">
+									<button type="submit" class="btn btn-outline-info mt-3">Buscar</button>
+								</form>
+								</div>
+								<% if ( contacto ) { %>
+									<div>
+										<form action="/contacto/id" method="post">
+											<label for="idContactos">Id:</label>
+											<input type="number" name="idContactos" id="idContactos" value="<%=contacto.idContactos%>" readonly>
+											<label for="nombre">Nombre:</label>
+											<input type="text" id="nombre" name="nombre" value="<%=contacto.nombre%>">
+											<label for="domicilio">Domicilio:</label>
+											<input type="text" id="domicilio" name="domicilio" value="<%=contacto.domicilio%>">
+											<label for="telefono">Telefono:</label>
+											<input type="text" id="telefono" name="telefono" value="<%=contacto.telefono%>">
+											<button type="submit">Guardar</button>
+										</form>
+						
+										<form action="/contacto/id/borrar" method="post">
+											<input type="hidden" name="idContactos" id="idContactos" value="<%=contacto.idContactos%>">
+											<button type="submit">Eliminar</button>
+										</form>
+									</div>
+									<% } %>	
+								</div>	
+						</div>
+					</div>
+					<div class="col-md-6 mt-5 ms-5">
+						<table class="table text-center table-bordered table-hover table-dark table-striped">
+							<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nombre</th>
+										<th>Domicilio</th>
+										<th>Telefono</th>
+									</tr>
+									</thead>
+									<% if (contactos) { %>
+									<tbody>
+										<% for(var i=0; i < contactos.length; i++ ) { %>
+											<tr>
+												<td><%= contactos[i].idContactos %></td>
+												<td><%= contactos[i].nombre %></td>
+												<td><%= contactos[i].domicilio %></td>
+												<td><%= contactos[i].telefono %></td>
+											</tr>
+											<% } %>
+									</tbody>
+									<% } %>
+							</table>
+								
+								<form action="/contacto"  method="post">
+									<button type="submit" class="btn btn-outline-secondary">Ver</button>
+								</form>
+								<form action="/contacto" method="get">
+									<button action="/contacto" class="btn btn-outline-dark">Limpiar</button>
+								</form>
+						</div>
+						
+					</div>
+			</div>
+	</body>
+	<%-include('partials/footer.html');%>
+
+</html>
